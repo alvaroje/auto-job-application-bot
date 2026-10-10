@@ -1,0 +1,661 @@
+{
+  "name": "Aplicador_CV_Personalizado",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        0
+      ],
+      "id": "da5bbb8b-6fb4-4099-ab1d-f52eb1549a3e",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "http://api.scraperapi.com?api_key=df548c4b631f85eb5ff9d7cb2a7c4743&url=https%3A%2F%2Fwww.tecnoempleo.com%2Fofertas-trabajo%2F%3Fte%3DProgramador%2Bjunior%26pr%3D263&render=true",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "8ee9848f-ba03-4cb5-b563-ff7404d550ca",
+      "name": "HTTP Request",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e19f7705-ca8a-4fd5-9796-6c3eb891f5c9",
+              "leftValue": "={{ $json.titulo.toLowerCase() }}",
+              "rightValue": "programador",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "ad749264-d1eb-4c11-9488-1833bb641ab3",
+              "leftValue": "={{ $json.titulo.toLowerCase() }}",
+              "rightValue": "desarrollador",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "363eec28-a23e-4060-b3a6-d69abe9bce34",
+              "leftValue": "={{ $json.titulo.toLowerCase() }}",
+              "rightValue": "software",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "3e3cfdea-07a0-43e7-8f11-c495f850705a",
+              "leftValue": "={{ $json.titulo.toLowerCase() }}",
+              "rightValue": "python",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "e1810705-a305-4fca-bb96-f2d5bb9a711a",
+              "leftValue": "={{ $json.titulo.toLowerCase() }}",
+              "rightValue": "java",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "8a4263a0-7dc1-4080-96ca-0a0b0d8758b6",
+              "leftValue": "={{ $json.titulo.toLowerCase() }}",
+              "rightValue": "informático",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "c55f93c7-2b8a-4684-ba38-b6f4ba0fcb4e",
+              "leftValue": "={{ $json.titulo.toLowerCase() }}",
+              "rightValue": "fullstack",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "eef586f1-6047-42b7-ba33-da1d16a8eee3",
+              "leftValue": "={{ $json.titulo.toLowerCase() }}",
+              "rightValue": "backend",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "6e45edbe-cf46-46a9-ba0b-129f3b632569",
+              "leftValue": "={{ $json.titulo.toLowerCase() }}",
+              "rightValue": "developer",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        688,
+        0
+      ],
+      "id": "e5617263-d799-44bc-ae80-a0a49908a688",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "63c57bf1-5fb9-456a-9baa-a87dc5199d52",
+              "leftValue": "={{ $json.titulo.toLowerCase() }}",
+              "rightValue": "senior",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        848,
+        0
+      ],
+      "id": "59b23c20-7f30-4e24-b0a3-878706b54961",
+      "name": "Filter1"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "titulo",
+              "cssSelector": "h3 a",
+              "returnArray": true
+            },
+            {
+              "key": "enlace",
+              "cssSelector": "h3 a",
+              "returnValue": "attribute",
+              "attribute": "href",
+              "returnArray": true
+            },
+            {
+              "key": "empresa",
+              "cssSelector": "a.text-primary.link-muted",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        368,
+        0
+      ],
+      "id": "14810234-fffb-4636-adac-ecebb6606947",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\n\nif (!Array.isArray(item.titulo)) {\n    return []; \n}\n\n// LÍMITE ESTRICTO: Procesar solo las primeras 19 ofertas para proteger la cuota\nconst numOfertas = Math.min(item.titulo.length, 19);\nconst resultados = [];\n\nfor (let i = 0; i < numOfertas; i++) {\n    resultados.push({\n        json: {\n            titulo: item.titulo[i] || \"\",\n            enlace: item.enlace[i] || \"\"\n        }\n    });\n}\n\nreturn resultados;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        528,
+        0
+      ],
+      "id": "f48c9d1b-bf0e-499b-b3ef-ddc3ddd61980",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "62e78015-b723-454c-a91b-6518058bb443",
+              "leftValue": "={{ $json.descripcion_completa.toLowerCase() }}",
+              "rightValue": "3 años",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            },
+            {
+              "id": "56a6cd5a-e060-4070-8fef-ed5e5270d398",
+              "leftValue": "={{ $json.descripcion_completa.toLowerCase() }}",
+              "rightValue": "4 años",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            },
+            {
+              "id": "398fda3d-251c-4f82-93fa-1b1258eee242",
+              "leftValue": "={{ $json.descripcion_completa.toLowerCase() }}",
+              "rightValue": "5 años",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        240,
+        256
+      ],
+      "id": "5cb760b1-d04b-435e-a0ee-80db2b009a98",
+      "name": "Filter2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -304,
+        240
+      ],
+      "id": "5447ab24-0215-487d-8cb1-fd63d9f95864",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "url": "=http://api.scraperapi.com?api_key=df548c4b631f85eb5ff9d7cb2a7c4743&url={{ encodeURIComponent($json.enlace) }}&render=true",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -80,
+        256
+      ],
+      "id": "b42d2320-b245-4baf-9c74-7e52b7a3d29a",
+      "name": "HTTP Request1",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "descripcion_completa",
+              "cssSelector": "=div[itemprop=\"description\"]"
+            },
+            {
+              "key": "empresa_limpia",
+              "cssSelector": "span[itemprop=\"name\"]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        80,
+        256
+      ],
+      "id": "6b3b0bc0-4431-4c11-80a7-178e2fe1cdc9",
+      "name": "HTML1"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1u5jf0w1XY0FbEOMjUyX6qjNq9mwigqPX",
+          "mode": "list",
+          "cachedResultName": "CV_BASE.txt",
+          "cachedResultUrl": "https://drive.google.com/file/d/1u5jf0w1XY0FbEOMjUyX6qjNq9mwigqPX/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -96,
+        0
+      ],
+      "id": "3b644828-6855-40f1-b738-8caf12e3d376",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "iRcb67SDTanoHn7Q",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "destinationKey": "texto_cv",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        48,
+        0
+      ],
+      "id": "6bd1300c-2c8e-46f9-b399-895aae8d1e4f",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "html_content": "={{ $json.cv_html }}",
+        "output_format": "file",
+        "output_filename": "CV Álvaro Pérez-Moreno Callejo11"
+      },
+      "type": "n8n-nodes-htmlcsstopdf.htmlcsstopdf",
+      "typeVersion": 1,
+      "position": [
+        800,
+        256
+      ],
+      "id": "eb8d6085-78ba-47e1-be63-958c0e45c306",
+      "name": "Convert HTML to PDF",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "htmlcsstopdfApi": {
+          "id": "01hPtVJX2u3BGIgH",
+          "name": "HTML to PDF account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-3.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-3.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Eres un experto Headhunter IT y desarrollador frontend.\nOferta de trabajo:\n{{ $json.descripcion_completa }}\n\nMi Currículum Base:\n{{ $('Extract from File').item.json.texto_cv }}\n\nInstrucciones de Redacción (CV):\n1. Mi nombre es Álvaro Pérez-Moreno Callejo. Usa EXACTAMENTE este nombre en el título o cabecera del HTML. Bajo ningún concepto inventes otros apellidos.\n2. Extracto Profesional: Redáctalo en un párrafo de unas 40-50 palabras. Debe ser un pitch técnico y seguro que conecte mi stack con los requisitos de la oferta.\n3. Habilidades: Prioriza las que pide la oferta explícitamente. No inventes tecnologías que no sé.\n4. Experiencia: MANTÉN todos los bullet points de mis prácticas originales. No borres mis responsabilidades (n8n, Make, automatizaciones), simplemente asegúrate de que suenen profesionales y orientadas a logros.\n\nInstrucciones de Diseño (OBLIGATORIO):\nGenera el HTML usando ESTRICTAMENTE este CSS para garantizar que ocupe 1 sola página sin verse vacío:\n`body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11.5px; margin: 0; padding: 25px 30px; color: #2d3748; line-height: 1.35; } h1 { font-size: 22px; color: #2B6CB0; margin: 0 0 5px 0; text-transform: uppercase; letter-spacing: 1px; } h2 { font-size: 14px; color: #2B6CB0; border-bottom: 2px solid #e2e8f0; margin: 15px 0 8px 0; padding-bottom: 3px; text-transform: uppercase; } p, ul { margin: 5px 0; } li { margin-bottom: 4px; } .subtitle { font-weight: 600; font-size: 13px; color: #4a5568; } .contact { font-size: 11px; color: #718096; margin-bottom: 15px; } .job-title { font-weight: 700; color: #1a202c; font-size: 12.5px; } .meta { font-style: italic; color: #718096; font-size: 11px; }`\n\nInstrucciones del Email (Cover Letter):\nMantén el tono excelente, directo y disruptivo del intento anterior.\n- Párrafo 1: Qué ofrezco directo al grano.\n- Párrafo 2: 3 bullet points cortos con mi valor técnico alineado a su oferta.\n- Párrafo 3: Cierre pidiendo entrevista.\n\nDevuelve ÚNICAMENTE un objeto JSON válido escapando bien las comillas del HTML:\n{\n  \"cv_html\": \"...\",\n  \"email_body\": \"...\"\n}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        384,
+        256
+      ],
+      "id": "f85e490b-0710-468e-8a02-0db69e9eee07",
+      "name": "Message a model",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "maxTries": 5,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "Fld8RNBunuXriOz5",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Obtenemos el texto en bruto que nos ha devuelto Gemini\nlet textoGemini = $input.first().json.content.parts[0].text;\n\n// 2. Limpiamos cualquier formato markdown residual (los famosos ```json)\ntextoGemini = textoGemini.replace(/```json/gi, \"\").replace(/```/gi, \"\").trim();\n\n// 3. Nos aseguramos de empezar exactamente en la primera llave\nlet inicio = textoGemini.indexOf('{');\ntextoGemini = textoGemini.substring(inicio);\n\nlet datosParseados;\n\n// 4. Bucle de rescate: intenta parsear, si hay caracteres basura al final, corta a la llave anterior y reintenta\ntry {\n    // Intentamos procesar el JSON normalmente\n    datosParseados = JSON.parse(textoGemini);\n} catch (error) {\n    // Si falla por la llave extra, buscamos la penúltima '}'\n    let fin = textoGemini.lastIndexOf('}', textoGemini.lastIndexOf('}') - 1);\n    textoGemini = textoGemini.substring(0, fin + 1);\n    \n    // Volvemos a parsear con el texto limpio\n    datosParseados = JSON.parse(textoGemini);\n}\n\n// 5. Devolvemos las dos variables totalmente limpias y separadas en formato Array de n8n\nreturn [{\n    json: {\n        cv_html: datosParseados.cv_html,\n        email_body: datosParseados.email_body\n    }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        256
+      ],
+      "id": "bcebf1c9-06fe-4832-b2f7-5d6f1a51d83e",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "sendTo": "alvaropmc157@gmail.com",
+        "subject": "=Oferta lista: {{ $('Loop Over Items').item.json.titulo }} en {{ $('HTML1').item.json.empresa_limpia }}",
+        "emailType": "text",
+        "message": "=Aplica aquí: {{ $('Loop Over Items').item.json.enlace }}\n\n-----------------------------------\n\n{{ $('Code in JavaScript1').item.json.email_body }}",
+        "options": {
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {}
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        976,
+        256
+      ],
+      "id": "1b2b38c3-799c-4f7e-b5e8-ea54b458ea2b",
+      "name": "Send a message",
+      "webhookId": "54b3de8f-6f59-4ffd-834b-b8a743d3a3ea",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "cR2JZisP3PXcKFXV",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "HTML1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML1": {
+      "main": [
+        [
+          {
+            "node": "Filter2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter2": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert HTML to PDF": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Convert HTML to PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "2e989e45-bade-4496-a297-6fbb52a9fcd9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13f6ee0fc11e2e95a679c87e70bc44d9b90dff90370f31cc0eae7c845c13e8b1"
+  },
+  "id": "a7gZfvHFZ2kuJk3w",
+  "tags": []
+}
