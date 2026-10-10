@@ -1,0 +1,28 @@
+[Extracto Profesional]
+Desarrollador Web y estudiante de segundo año de Ingeniería Informática con experiencia práctica en backend (Python, JavaScript, Java, PHP, C++) y gestión de bases de datos relacionales (MySQL). Especializado en la optimización y automatización de flujos de trabajo utilizando n8n y Make, y familiarizado con el trabajo en equipo bajo metodologías ágiles (Scrum). Destaco por mi capacidad de análisis, pensamiento lógico y rápida adaptación a nuevos retos tecnológicos.
+
+[Habilidades y Herramientas]
+* Lenguajes de Programación: Python, JavaScript, Java, PHP, C++
+* Bases de Datos: MySQL
+* Automatización e Integración: n8n, Make
+* Metodologías: Scrum (Agile)
+* Competencias transversales: Análisis, Pensamiento lógico, Flexibilidad y adaptación, Trabajo en equipo, Iniciativa.
+
+[Experiencia]
+* Prácticas como Desarrollador de Automatizaciones en Departamento de IA - Kure Sistemas SL (Fechas no especificadas)
+    * Desarrollo de automatizaciones de procesos mediante Make y n8n.
+    * Diseño e implementación de flujos para la generación y despliegue automático de contenido en el blog corporativo.
+    * Desarrollo de un sistema automatizado para la creación de presentaciones centradas en el diagnóstico de escalabilidad y análisis de gastos.
+    * Integración de sistemas de alerta para detectar movimientos de la competencia y redactar auditorías de mejora de producto vía email.
+
+[Formación]
+* Estudiante de Ingeniería Informática (2º Año) - Universidad Nebrija (2025-2029)
+* Titulado en Desarrollo de Aplicaciones Web - CCC Centro Oficial de Formación Profesional (2023-2025)
+* Diplomado en Análisis y Diseño de Software + Programación Avanzada - UCAM (2023-2025)
+
+[Idiomas]
+* Español (Nativo)
+* Inglés (B2)
+
+[Portafolio y Proyectos]
+* https://alvaroje.github.io/portfolio/
